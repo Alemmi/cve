@@ -27,6 +27,10 @@ def gadget_write_at(addr, qword):
     yield qword
     yield MOV_GADGET
 
+def gadget_create_string(addr, s):
+    s = s.encode() + b"\x00"
+    for i in range(0, len(s), 8):
+        yield from gadget_write_at(addr + i, s[i:i+8])
 
 
 if __name__ == "__main__":
